@@ -1,8 +1,6 @@
 const path = require('path')
 const utils = require('./utils')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const vueLoaderConfig = require('./vue-loader.conf')
 
 
@@ -33,7 +31,6 @@ module.exports = {
                 ignore: ['.*']
             }
         ]),
-        // new ExtractTextPlugin("static/css/[name].css?v=[hash:4]"),
     ].concat(utils.htmlPlugin()),
     module: {
         rules: [

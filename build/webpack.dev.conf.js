@@ -6,10 +6,9 @@ const baseWebpackConfig = require('./webpack.base.conf')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
 const chalk = require('chalk')
-// add ip config
 const ip = require('ip');
 
-const HOST = process.env.HOST
+const HOST = ip.address()
 const PORT = process.env.PORT && Number(process.env.PORT)
 
 const devWebpackConfig = merge(baseWebpackConfig, {
@@ -24,7 +23,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
         historyApiFallback: true,
         hot: true,
         compress: true,
-        host: ip.address(),
+        host: HOST,
         port: PORT || 8080,
         open: false,
         overlay: {warnings: false, errors: true},
@@ -52,16 +51,13 @@ module.exports = new Promise((resolve, reject) => {
         if (err) {
             reject(err)
         } else {
-            // publish the new Port, necessary for e2e tests
             process.env.PORT = port
-            // add port to devServer config
             devWebpackConfig.devServer.port = port
-            // Add FriendlyErrorsPlugin
             devWebpackConfig.plugins.push(new FriendlyErrorsPlugin({
                 compilationSuccessInfo: {
                     messages: [
                         chalk.gray('------------------------------------'),
-                        '   Running: ' + chalk.magenta(`http://${devWebpackConfig.devServer.host}:${port}`),
+                        '   Running: ' + chalk.magenta(`http://${HOST}:${port}`),
                         chalk.gray('------------------------------------')
                     ]
                 },
