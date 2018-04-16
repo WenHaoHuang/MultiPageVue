@@ -2,6 +2,7 @@ const path = require('path')
 const utils = require('./utils')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const vueLoaderConfig = require('./vue-loader.conf')
 
 
@@ -11,7 +12,7 @@ module.exports = {
     output: {
         path: utils.resolve('dist'),
         filename: 'static/js/[name].js?v=[hash:4]',
-        publicPath: ''
+        chunkFilename: 'static/js/[name].js?v=[hash:4]'
     },
     resolve: {
         extensions: ['.js', '.vue', '.json'],
@@ -32,7 +33,7 @@ module.exports = {
                 ignore: ['.*']
             }
         ]),
-        new ExtractTextPlugin("static/css/[name].css?v=[hash:4]"),
+        // new ExtractTextPlugin("static/css/[name].css?v=[hash:4]"),
     ].concat(utils.htmlPlugin()),
     module: {
         rules: [
@@ -50,24 +51,24 @@ module.exports = {
                 test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
                 loader: 'url-loader',
                 options: {
-                    limit: 10000,
-                    name: utils.assetsPath('img/[name].[ext]?v=[hash:4]')
+                    limit: 1024,
+                    name: utils.assetsPath('static/img/[name].[ext]?v=[hash:4]')
                 }
             },
             {
                 test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
                 loader: 'url-loader',
                 options: {
-                    limit: 10000,
-                    name: utils.assetsPath('media/[name].[ext]?v=[hash:4]')
+                    limit: 1024,
+                    name: utils.assetsPath('static/media/[name].[ext]?v=[hash:4]')
                 }
             },
             {
                 test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
                 loader: 'url-loader',
                 options: {
-                    limit: 10000,
-                    name: utils.assetsPath('fonts/[name].[ext]?v=[hash:4]')
+                    limit: 1024,
+                    name: utils.assetsPath('static/fonts/[name].[ext]?v=[hash:4]')
                 }
             },
         ]

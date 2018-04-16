@@ -5,7 +5,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const PAGE_PATH = path.resolve(__dirname, '../src/pages')
 
 exports.resolve = (dir) => {
-    return path.join(__dirname, '../', dir)
+    return path.join(__dirname, '..', dir)
 }
 exports.assetsPath = function (_path) {
     const assetsSubDirectory = ''
@@ -95,7 +95,6 @@ exports.createNotifierCallback = () => {
 }
 // 多入口配置
 exports.entries = () => {
-
     const entryFiles = glob.sync(PAGE_PATH + '/!(_**)/main.js')
     const map = {}
     entryFiles.forEach((filePath) => {
@@ -114,11 +113,9 @@ exports.htmlPlugin = () => {
         const pathName = pathArr[pathArr.length - 2]
         let conf = {
             template: './src/index.template.html',
-            filename: pathName + '.html',
+            filename: pathName + '/index.html',
             chunks: ['commons', pathName],
             inject: true,
-            publicPath: '/' + pathName + '/',
-            path: path.resolve(__dirname, '../dist'),
             minify: {
                 removeComments: true,
                 collapseWhitespace: true,

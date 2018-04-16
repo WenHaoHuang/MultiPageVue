@@ -65,7 +65,7 @@ module.exports = new Promise((resolve, reject) => {
                         chalk.gray('------------------------------------')
                     ]
                 },
-                onErrors: undefined
+                onErrors: utils.createNotifierCallback()
             }))
 
             resolve(devWebpackConfig)
